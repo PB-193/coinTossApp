@@ -1,15 +1,24 @@
 "use strict";
-// コイン関連の要素を取得
+// 要素を取得
 const coinContainer = document.querySelector('.coin-container');
 const coin = document.querySelector('.coin');
 const resultDiv = document.getElementById('result');
+const tossButton = document.getElementById('tossButton');
+const option1Input = document.getElementById('option1');
+const option2Input = document.getElementById('option2');
+const coinFront = document.querySelector('.coin-face.coin-front');
+const coinBack = document.querySelector('.coin-face.coin-back');
 // スワイプ操作の状態を管理する変数
 let startY = 0;
 let startTime = 0;
 let isFlipping = false;
 // コイントスの結果を決定する関数
 function tossCoin() {
-    return Math.random() < 0.5 ? '表' : '裏';
+    const option1 = option1Input.value.trim() || '表';
+    const option2 = option2Input.value.trim() || '裏';
+    coinFront.textContent = option1;
+    coinBack.textContent = option2;
+    return Math.random() < 0.5 ? option1 : option2;
 }
 // コインをアニメーションさせる関数
 function flipCoin(velocity) {
@@ -43,16 +52,39 @@ coinContainer.addEventListener('touchend', (e) => {
         return;
     isFlipping = true;
     const { result, rotations, duration } = flipCoin(velocity);
+    // 投げ上げアニメーションを追加
+    coinContainer.classList.add('throwing');
     // コインのアニメーションを設定
     coin.style.transition = `transform ${duration}s ease-out`;
-    coin.style.transform = `rotateY(${rotations * 360 + (result === '裏' ? 180 : 0)}deg)`;
+    const option2 = option2Input.value.trim() || '裏';
+    coin.style.transform = `rotateY(${rotations * 360 + (result === option2 ? 180 : 0)}deg)`;
     // アニメーション終了時の処理
     setTimeout(() => {
         resultDiv.textContent = result;
         isFlipping = false;
+        coinContainer.classList.remove('throwing');
     }, duration * 1000);
 });
 // アニメーション終了時のイベントリスナー
 coin.addEventListener('transitionend', () => {
     coin.style.transition = 'none';
+});
+// ボタンクリックでコイントスを実行
+tossButton.addEventListener('click', () => {
+    if (isFlipping)
+        return;
+    isFlipping = true;
+    const { result, rotations, duration } = flipCoin(500); // 固定の速度でフリップ
+    // 投げ上げアニメーションを追加
+    coinContainer.classList.add('throwing');
+    // コインのアニメーションを設定
+    coin.style.transition = `transform ${duration}s ease-out`;
+    const option2 = option2Input.value.trim() || '裏';
+    coin.style.transform = `rotateY(${rotations * 360 + (result === option2 ? 180 : 0)}deg)`;
+    // アニメーション終了時の処理
+    setTimeout(() => {
+        resultDiv.textContent = result;
+        isFlipping = false;
+        coinContainer.classList.remove('throwing');
+    }, duration * 1000);
 });

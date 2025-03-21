@@ -43,13 +43,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: 24px;
             font-weight: bold;
             color: #333;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            border: 8px solid #daa520;
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            border: 8px solid #cc0000;
             box-sizing: border-box;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+            padding: 10px;
         }
 
         .coin-back {
@@ -67,18 +69,60 @@
             margin-top: 20px;
             font-size: 1.2rem;
         }
+
+        @keyframes coinThrow {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-150px) scale(0.8);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .throwing {
+            animation: coinThrow 0.6s ease-out;
+        }
     </style>
 </head>
 <body>
     <h1>コイントスアプリ!</h1>
+    <div class="custom-options" style="margin-bottom: 20px;">
+        <input type="text" id="option1" placeholder="選択肢1" style="
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        ">
+        <span>または</span>
+        <input type="text" id="option2" placeholder="選択肢2" style="
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        ">
+    </div>
     <div class="coin-container">
         <div class="coin">
-            <div class="coin-face coin-front">O</div>
-            <div class="coin-face coin-back">X</div>
+            <div class="coin-face coin-front"></div>
+            <div class="coin-face coin-back"></div>
         </div>
     </div>
     <div id="result"></div>
-    <div class="instruction">コインをスワイプしてトスしてください</div>
+    <button id="tossButton" style="
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        margin: 20px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    ">コイントス</button>
+    <div class="instruction">コインをスワイプまたはボタンをクリックしてトスしてください</div>
 
     <script src="./src/app.js"></script>
 </body>
