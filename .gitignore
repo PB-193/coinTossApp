@@ -1,0 +1,31 @@
+# 依存関係
+node_modules/
+dist/
+
+# 環境変数
+.env
+.env.local
+.env.*.local
+
+# AWS認証情報
+.aws/
+aws.config.json
+
+# エディタ設定
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS関連
+.DS_Store
+Thumbs.db
+
+# ログファイル
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ビルド出力
+build/ 

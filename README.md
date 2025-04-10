@@ -27,6 +27,49 @@
    npm run build
    ```
 
+## 開発環境のセットアップ
+
+### コード品質ツール
+
+プロジェクトでは以下のコード品質ツールを使用しています：
+
+- **ESLint**: コードの品質チェック
+- **Prettier**: コードのフォーマット
+- **Husky**: Gitフックの管理
+- **lint-staged**: ステージングされたファイルのみをチェック
+
+#### セットアップ手順
+
+1. 必要なパッケージのインストール
+
+   ```sh
+   npm install -D prettier eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-vue husky lint-staged
+   ```
+
+2. Huskyの初期化
+   ```sh
+   npx husky install
+   ```
+
+### 利用可能なコマンド
+
+- `npm run dev`: 開発サーバーを起動
+- `npm run build`: プロダクションビルド
+- `npm run preview`: ビルドしたアプリのプレビュー
+- `npm run lint`: ESLintによるコードチェック
+- `npm run format`: Prettierによるコードフォーマット
+- `npm run deploy:staging`: ステージング環境へのデプロイ
+- `npm run deploy:prod`: 本番環境へのデプロイ
+
+### Gitコミット時の自動チェック
+
+コミット時に自動的に以下のチェックが実行されます：
+
+- Prettierによるコードフォーマット
+- ESLintによるコードチェック
+
+エラーがある場合はコミットが中断され、修正が必要です。
+
 ## ローカルでの動作確認
 
 ### 1. ローカルサーバーを起動
