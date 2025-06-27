@@ -5,7 +5,9 @@ dist/
 # 環境変数
 .env
 .env.local
-.env.*.local
+.env.development
+.env.test
+.env.production
 
 # AWS認証情報
 .aws/

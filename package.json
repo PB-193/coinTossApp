@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview",
-    "deploy:staging": "npm run build && aws s3 sync dist/ s3://cion-toss-app-staging",
-    "deploy:prod": "npm run build && aws s3 sync dist/ s3://cion-toss-app",
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "preview": "node dist/index.js",
+    "deploy:staging": "npm run build && aws s3 sync dist/ s3://$S3_BUCKET_STAGING",
+    "deploy:prod": "npm run build && aws s3 sync dist/ s3://$S3_BUCKET_PROD",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write .",
     "prepare": "husky install"

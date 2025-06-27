@@ -1,0 +1,33 @@
+{
+  "distribution": {
+    "Comment": "Nuxt3 application deployment",
+    "Origins": {
+      "Quantity": 1,
+      "Items": [
+        {
+          "Id": "S3Origin",
+          "DomainName": "${S3_DOMAIN_NAME}",
+          "S3OriginConfig": {
+            "OriginAccessIdentity": ""
+          }
+        }
+      ]
+    },
+    "DefaultRootObject": "index.html",
+    "DefaultCacheBehavior": {
+      "TargetOriginId": "S3Origin",
+      "ForwardedValues": {
+        "QueryString": false,
+        "Cookies": {
+          "Forward": "none"
+        }
+      },
+      "ViewerProtocolPolicy": "redirect-to-https",
+      "MinTTL": 86400,
+      "MaxTTL": 31536000,
+      "DefaultTTL": 86400
+    },
+    "PriceClass": "PriceClass_200",
+    "Enabled": true
+  }
+}
