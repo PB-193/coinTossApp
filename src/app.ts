@@ -7,6 +7,72 @@ const option1Input = document.getElementById('option1') as HTMLInputElement
 const option2Input = document.getElementById('option2') as HTMLInputElement
 const coinFront = document.querySelector('.coin-face.coin-front') as HTMLDivElement
 const coinBack = document.querySelector('.coin-face.coin-back') as HTMLDivElement
+const colorButtons = document.querySelectorAll('.color-btn') as NodeListOf<HTMLButtonElement>
+
+// カラーパレット
+const colors = {
+  red: {
+    gradient: 'linear-gradient(45deg, #ff0000, #ff6b6b)',
+    border: '#cc0000',
+    button: '#ff0000',
+  },
+  blue: {
+    gradient: 'linear-gradient(45deg, #0066ff, #66b3ff)',
+    border: '#003d99',
+    button: '#0066ff',
+  },
+  green: {
+    gradient: 'linear-gradient(45deg, #00cc00, #66ff66)',
+    border: '#008800',
+    button: '#00cc00',
+  },
+  purple: {
+    gradient: 'linear-gradient(45deg, #9933ff, #cc66ff)',
+    border: '#6600cc',
+    button: '#9933ff',
+  },
+  orange: {
+    gradient: 'linear-gradient(45deg, #ff8800, #ffaa44)',
+    border: '#cc5500',
+    button: '#ff8800',
+  },
+}
+
+// 現在選択されている色
+let currentColor: string = 'red'
+
+// 色の適用関数
+function applyColor(colorName: string) {
+  const color = colors[colorName as keyof typeof colors]
+  // コインの色を変更
+  coinFront.style.background = color.gradient
+  coinFront.style.borderColor = color.border
+  coinBack.style.background = color.gradient
+  coinBack.style.borderColor = color.border
+
+  // ボタンの色を変更
+  tossButton.style.backgroundColor = color.button
+}
+
+// カラーボタンのイベントリスナーを設定
+colorButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // 選択状態を更新
+    colorButtons.forEach((btn) => btn.classList.remove('selected'))
+    button.classList.add('selected')
+
+    // 色を適用
+    const colorName = button.getAttribute('data-color') as string
+    currentColor = colorName
+    applyColor(colorName)
+  })
+})
+
+// 初期色を設定
+document.addEventListener('DOMContentLoaded', () => {
+  colorButtons[0].classList.add('selected') // 最初の色（赤）を選択状態に
+  applyColor(currentColor)
+})
 
 // スワイプ操作の状態を管理する変数
 let startY: number = 0
@@ -68,6 +134,7 @@ coinContainer.addEventListener('touchend', (e: TouchEvent) => {
   // アニメーション中は入力を無効化
   option1Input.disabled = true
   option2Input.disabled = true
+  tossButton.disabled = true // ボタンを無効化
 
   // 投げ上げアニメーションを追加
   coinContainer.classList.add('throwing')
@@ -90,6 +157,7 @@ coinContainer.addEventListener('touchend', (e: TouchEvent) => {
     // アニメーション終了後に入力を再度有効化
     option1Input.disabled = false
     option2Input.disabled = false
+    tossButton.disabled = false // ボタンを有効化
   }, duration * 1000)
 })
 
@@ -108,6 +176,7 @@ tossButton.addEventListener('click', () => {
   // アニメーション中は入力を無効化
   option1Input.disabled = true
   option2Input.disabled = true
+  tossButton.disabled = true // ボタンを無効化
 
   // 投げ上げアニメーションを追加
   coinContainer.classList.add('throwing')
@@ -130,5 +199,6 @@ tossButton.addEventListener('click', () => {
     // アニメーション終了後に入力を再度有効化
     option1Input.disabled = false
     option2Input.disabled = false
+    tossButton.disabled = false // ボタンを有効化
   }, duration * 1000)
 })
