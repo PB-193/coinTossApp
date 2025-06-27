@@ -68,11 +68,23 @@ colorButtons.forEach((button) => {
   })
 })
 
-// 初期色を設定
-document.addEventListener('DOMContentLoaded', () => {
-  colorButtons[0].classList.add('selected') // 最初の色（赤）を選択状態に
-  applyColor(currentColor)
-})
+// 初期色を設定する関数
+function initializeColors() {
+  // 色ボタンが存在するかチェック
+  if (colorButtons.length > 0) {
+    colorButtons[0].classList.add('selected') // 最初の色（赤）を選択状態に
+    applyColor(currentColor)
+  }
+}
+
+// DOMの状態をチェックして初期化を実行
+if (document.readyState === 'loading') {
+  // まだDOMが読み込み中の場合はイベントリスナーを設定
+  document.addEventListener('DOMContentLoaded', initializeColors)
+} else {
+  // 既にDOMが読み込み完了している場合は即座に実行
+  initializeColors()
+}
 
 // スワイプ操作の状態を管理する変数
 let startY: number = 0
